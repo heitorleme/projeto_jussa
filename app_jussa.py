@@ -52,6 +52,8 @@ if catalogo_file and base_file:
         df_novos_lancamentos
     ], ignore_index=True)
 
+    df_simplificado = df_base_atualizado[["titulo", "precio", "isbn"]]
+
     # Exibição
     st.subheader("Diferenças de Preço")
     st.dataframe(df_preco_diferente)
@@ -74,6 +76,13 @@ if catalogo_file and base_file:
     "📥 Baixar Base Atualizada (Excel)",
     convert_df_to_excel(df_base_atualizado),
     "base_atualizada.xlsx",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
+    st.download_button(
+    "📥 Baixar Base Atualizada Simplificada (Excel)",
+    convert_df_to_excel(df_simplificado),
+    "base_atualizada_simplificada.xlsx",
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 
