@@ -70,30 +70,30 @@ if catalogo_file and base_file:
         return df.to_csv(index=False).encode('utf-8')
 
    # Botões de download para arquivos Excel
-st.download_button(
+    st.download_button(
     "📥 Baixar Base Atualizada (Excel)",
     convert_df_to_excel(df_base_atualizado),
     "base_atualizada.xlsx",
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-)
+    )
 
-st.download_button(
+    st.download_button(
     "📥 Baixar Diferenças de Preço (Excel)",
     convert_df_to_excel(df_preco_diferente),
     "precos_diferentes.xlsx",
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-)
+    )
 
-st.download_button(
+    st.download_button(
     "📥 Baixar Fora de Estoque (Excel)",
     convert_df_to_excel(df_fora_de_estoque),
     "fora_de_estoque.xlsx",
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-)
+    )
 
-st.download_button(
+    st.download_button(
     "📥 Baixar Novos Lançamentos (Excel)",
     convert_df_to_excel(df_novos_lancamentos),
     "novos_lancamentos.xlsx",
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-)
+    )
