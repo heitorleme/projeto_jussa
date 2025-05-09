@@ -10,8 +10,8 @@ base_file = st.file_uploader("Upload da Base Atual (CSV)", type="csv")
 
 if catalogo_file and base_file:
     # Leitura dos CSVs
-    df_catalogo_novo = pd.read_csv(catalogo_file)
-    df_base = pd.read_csv(base_file)
+    df_catalogo_novo = pd.read_csv(catalogo_file, sep=";")
+    df_base = pd.read_csv(base_file, sep=";")
 
     # Padronização de ISBNs
     df_catalogo_novo['isbn'] = df_catalogo_novo['isbn'].astype(str).str.strip().str.replace('-', '')
