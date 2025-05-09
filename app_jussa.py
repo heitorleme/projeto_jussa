@@ -2,6 +2,14 @@ import streamlit as st
 import pandas as pd
 from io import BytesIO
 
+# Função para converter DataFrame para Excel em memória
+def convert_df_to_excel(df):
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False, sheet_name='Planilha')
+    processed_data = output.getvalue()
+    return processed_data
+
 st.title("Atualização de Catálogo de Livros")
 
 # Upload dos arquivos
@@ -61,7 +69,31 @@ if catalogo_file and base_file:
     def convert_df(df):
         return df.to_csv(index=False).encode('utf-8')
 
-    st.download_button("Baixar Base Atualizada", convert_df(df_base_atualizado), "base_atualizada.csv", "text/csv")
-    st.download_button("Baixar Diferenças de Preço", convert_df(df_preco_diferente), "precos_diferentes.csv", "text/csv")
-    st.download_button("Baixar Fora de Estoque", convert_df(df_fora_de_estoque), "fora_de_estoque.csv", "text/csv")
-    st.download_button("Baixar Novos Lançamentos", convert_df(df_novos_lancamentos), "novos_lancamentos.csv", "text/csv")
+   # Botões de download para arquivos Excel
+st.download_button(
+    "📥 Baixar Base Atualizada (Excel)",
+    convert_df_to_excel(df_base_atualizado),
+    "base_atualizada.xlsx",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
+
+st.download_button(
+    "📥 Baixar Diferenças de Preço (Excel)",
+    convert_df_to_excel(df_preco_diferente),
+    "precos_diferentes.xlsx",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
+
+st.download_button(
+    "📥 Baixar Fora de Estoque (Excel)",
+    convert_df_to_excel(df_fora_de_estoque),
+    "fora_de_estoque.xlsx",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
+
+st.download_button(
+    "📥 Baixar Novos Lançamentos (Excel)",
+    convert_df_to_excel(df_novos_lancamentos),
+    "novos_lancamentos.xlsx",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
