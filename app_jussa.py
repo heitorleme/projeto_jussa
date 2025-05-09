@@ -28,12 +28,12 @@ if catalogo_file and base_file:
     # MERGE para comparação de preços
     df_comparado = pd.merge(
         df_catalogo_novo, df_base,
-        on='isbn', how='inner',
+        on='id_book', how='inner',
         suffixes=('_novo', '_base')
     )
 
     # Diferenças de preço
-    df_preco_diferente = df_comparado[df_comparado['precio_novo'] != df_comparado['precio_base']][['isbn', 'precio_novo']]
+    df_preco_diferente = df_comparado[df_comparado['precio_novo'] != df_comparado['precio_base']][['id_book', 'precio_novo']]
 
     # Fora de estoque
     df_fora_de_estoque = df_base[~df_base['isbn'].isin(df_catalogo_novo['isbn'])]
