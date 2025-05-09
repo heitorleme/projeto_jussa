@@ -36,15 +36,15 @@ if catalogo_file and base_file:
     df_preco_diferente = df_comparado[df_comparado['precio_novo'] != df_comparado['precio_base']][['id_book', 'precio_novo']]
 
     # Fora de estoque
-    df_fora_de_estoque = df_base[~df_base['isbn'].isin(df_catalogo_novo['isbn'])]
+    df_fora_de_estoque = df_base[~df_base['id_book'].isin(df_catalogo_novo['id_book'])]
 
     # Novos lançamentos
-    df_novos_lancamentos = df_catalogo_novo[~df_catalogo_novo['isbn'].isin(df_base['isbn'])]
+    df_novos_lancamentos = df_catalogo_novo[~df_catalogo_novo['id_book'].isin(df_base['id_book'])]
 
     # Atualizando a base
-    isbn_remover = set(df_fora_de_estoque['isbn']) | set(df_preco_diferente['isbn'])
-    df_base_filtrada = df_base[~df_base['isbn'].isin(isbn_remover)]
-    df_precos_atualizados = df_catalogo_novo[df_catalogo_novo['isbn'].isin(df_preco_diferente['isbn'])]
+    isbn_remover = set(df_fora_de_estoque['id_book']) | set(df_preco_diferente['id_book'])
+    df_base_filtrada = df_base[~df_base['id_book'].isin(isbn_remover)]
+    df_precos_atualizados = df_catalogo_novo[df_catalogo_novo['id_book'].isin(df_preco_diferente['id_book'])]
 
     df_base_atualizado = pd.concat([
         df_base_filtrada,
